@@ -27,7 +27,7 @@ public class DatabaseManager {
 			System.err.println("Could not get an sql connection.");
 			System.err.println(ex.getErrorCode() + ex.getMessage());
 			System.exit(0);
-		} finally {
+		}/* finally {
 			if (conn != null)
 				try {
 					conn.close();
@@ -40,7 +40,7 @@ public class DatabaseManager {
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
-		}
+		}*/
 	}
 	
 	public ArrayList<Car> getCarList(){
@@ -99,22 +99,18 @@ public class DatabaseManager {
 	}
 	
 	public boolean checkAdmin(int vendor_no, String vendor_name, String passwd){
-		Admin admin = new Admin();
-		admin.setPasswd(null);
-		admin.setVendorName(null);
+		int count = 0;
 		
-		String query = "Select * from admin where vendor_no = '"+vendor_no + "' vendor_name= '"+ vendor_name + "' passwd = '"+ passwd +"'";
+		String query = "Select count(*) from admin where vendor_no = '"+vendor_no + "' and vendor_name= '"+ vendor_name + "' and passwd = '"+ passwd +"'";
 		try (ResultSet rs = stmt.executeQuery(query)) {
 			while (rs.next()) {
-				admin.setPasswd(rs.getString("passwd"));
-				admin.setVendorName(rs.getString("vendor_name"));
-				admin.setVendorNo(rs.getInt("vendor_no"));
+				count = rs.getInt("count(*)");
 			}
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
 		}
 		
-		if(admin.getPasswd().equals(null) && admin.getVendorName().equals(null))
+		if(count == 0)
 			return false;
 		else
 			return true;
