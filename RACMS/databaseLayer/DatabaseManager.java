@@ -27,20 +27,7 @@ public class DatabaseManager {
 			System.err.println("Could not get an sql connection.");
 			System.err.println(ex.getErrorCode() + ex.getMessage());
 			System.exit(0);
-		}/* finally {
-			if (conn != null)
-				try {
-					conn.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-			if (stmt != null)
-				try {
-					stmt.close();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-		}*/
+		}
 	}
 	
 	public ArrayList<Car> getCarList(){
