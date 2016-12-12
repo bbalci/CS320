@@ -7,11 +7,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.Scanner;
 
 public class DatabaseManager {
-	static Scanner scanner = new Scanner(System.in);
-
 	static final String DB_URL = "jdbc:mysql://localhost:3306/racms";
 	static final String USER = "root";
 	static final String PASS = "password";
