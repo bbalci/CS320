@@ -31,7 +31,7 @@ public class AdminPanel extends JFrame{
 		for(int i = 0; i<allAdmins.size(); i++) {
 			vendorPanel.add(allAdmins.get(i).toPanel());
 			JButton choose = new JButton("Choose");
-			//TO-DO ADD ACTION LISTENER
+			choose.addActionListener(new chooseHandler(this, allAdmins.get(i).getVendorNo()));
 			
 			vendorPanel.add(choose);
 		}
@@ -73,6 +73,27 @@ public class AdminPanel extends JFrame{
 		carListingPanel.add(checkBoxes, BorderLayout.NORTH);
 		carListingPanel.add(panel, BorderLayout.SOUTH);
 		return carListingPanel;
+	}
+	
+}
+
+class chooseHandler implements ActionListener {
+	AdminPanel panel = new AdminPanel();
+	int vendorNo;
+	
+	public chooseHandler(AdminPanel panel, int vendorNo){
+		this.panel = panel;
+		this.vendorNo = vendorNo;
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent arg0) {
+		panel.removeAll();
+		try {
+			panel.carListingPanel(vendorNo);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 }
