@@ -9,9 +9,10 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class DatabaseManager {
-	static final String DB_URL = "jdbc:mysql://185.111.233.24:3306/kwmbalci_racms?verifyServerCertificate=false&useSSL=false";
-	static final String USER = "kwmbalci_cs320";
-	static final String PASS = "Merhaba123";
+
+	static final String DB_URL = "jdbc:mysql://localhost:3306/racms";
+	static final String USER = "root";
+	static final String PASS = "password";
 
 	static Connection conn = null;
 	static Statement stmt = null;
@@ -30,7 +31,7 @@ public class DatabaseManager {
 	public ArrayList<Car> getCarList(){
 		ArrayList<Car> cars = new ArrayList<Car>();
 		
-		String query = "Select * from Car";
+		String query = "Select * from car";
 		try (ResultSet rs = stmt.executeQuery(query)) {
 			while (rs.next()) {
 				Car car = new Car();
@@ -145,6 +146,24 @@ public class DatabaseManager {
 			return false;
 	}
 	
+	public boolean checkRented(String plate) {
+		String query = "Select status from car where plate = " + plate;
+		String status = null;
+		
+		try (ResultSet rs = stmt.executeQuery(query)){
+			while(rs.next()){
+				status = rs.getString("status");
+			}
+		} catch(SQLException e) {
+			System.out.println(e.getMessage());
+		}
+		
+		if(status.equalsIgnoreCase("rented"))
+			return true;
+		else
+			return false;
+	}
+	
 	public boolean checkAvailableAtCertainDates(String plate, Date rentingDate, Date returningDate) {
 		if(checkAvailable(plate)) 
 			return true;
@@ -168,6 +187,16 @@ public class DatabaseManager {
 				return true;
 			else
 				return false;
+		}
+	}
+	
+	public void deleteCar(String plate) {
+		String query = "delete from car where plate = '" + plate + "'";
+		
+		try {
+			stmt.executeUpdate(query);
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
 		}
 	}
 	
