@@ -41,7 +41,6 @@ public class PaymentPanel extends JFrame implements ActionListener{
 				for(int i = 0; i < numPairs; i++){
 					inputs[i] = inputfields[i].getText();
 				}
-				System.out.println(Arrays.toString(inputs));
 			}
 		});
 		
@@ -57,10 +56,7 @@ public class PaymentPanel extends JFrame implements ActionListener{
 		carinfofield.setEditable(false);
 		price.setEditable(false);
 		CarInfoSummary.add(carinfofield);
-		CarInfoSummary.add(price);
-		
-
-		
+		CarInfoSummary.add(price);		
 		CarInfoSummary.add(submit);
 		
 		SpringUtilities.makeCompactGrid(InfoPanel,
@@ -89,8 +85,7 @@ public class PaymentPanel extends JFrame implements ActionListener{
             public void run() {
                 paymentPanel();
             }
-        });
-		
+        });		
 	}
 
 	@Override
