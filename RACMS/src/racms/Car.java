@@ -251,6 +251,55 @@ public class Car {
 		
 		return car_panel;
 	}
+	
+	public JPanel toPanelAdmin() throws IOException{
+		JPanel car_panel = new JPanel();
+		car_panel.setSize(700, 350);
+		car_panel.setLayout(new GridLayout(1,3));
+		
+		URL url;
+		url = new URL("http://balci.xyz/racms_photo/"+this.photo);
+		BufferedImage c = ImageIO.read(url);
+		ImageIcon image = new ImageIcon(c);
+		
+		
+		JLabel car_image = new JLabel(image);
+		car_image.setBorder(new EmptyBorder(10,10,10,10));
+		
+		JPanel car_info = new JPanel();
+		car_info.setLayout(new GridLayout(5,1));
+		JLabel brand_model = new JLabel(this.brand+" "+this.model);
+		JLabel transmisson = new JLabel("Transmission: "+this.gearType);
+		JLabel fuel = new JLabel("Fuel: " +this.fuelType);
+		JLabel min_age = new JLabel("Minimum Age: "+this.minRentAge);
+		JLabel segment = new JLabel(this.segment+" Segment");
+		
+		car_info.add(brand_model);
+		car_info.add(segment);
+		car_info.add(transmisson);
+		car_info.add(fuel);
+		car_info.add(min_age);
+		
+		JPanel car_editing = new JPanel();
+		car_editing.setLayout(new GridLayout(4,1));
+		JLabel l_price = new JLabel("Daily Price");
+		JLabel price = new JLabel(""+this.dailyPrice+" TL");
+		JButton editButton = new JButton("Edit Car");
+		editButton.addActionListener(new EditButtonListener());
+		JButton deleteButton = new JButton("Delete Car");
+		deleteButton.addActionListener(new DeleteButtonListener(plate));
+		
+		car_editing.add(l_price);
+		car_editing.add(price);
+		car_editing.add(editButton);
+		car_editing.add(deleteButton);
+		
+		car_panel.add(car_image);
+		car_panel.add(car_info);
+		car_panel.add(car_editing);
+		
+		return car_panel;
+	}
 }
 
 class rentHandler implements ActionListener{
