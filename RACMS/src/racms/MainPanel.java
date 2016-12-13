@@ -32,7 +32,7 @@ public class MainPanel extends JPanel{
 		JLabel bg = new JLabel(icon);
 		
 		
-		//Vendor and Date Options for the Customer
+		//Vendor and Date Options for the Customer Information
 		JPanel user_panel = new JPanel();
 		user_panel.setBorder(new EmptyBorder(10,10,10,10));
 		user_panel.setOpaque(false);
