@@ -204,7 +204,7 @@ public class Car {
 		renterEmail = newRenterEmail;
 	}
 	
-	public JPanel toPanel() throws IOException{
+	public JPanel toPanel(String vendor, Date pickup_date, Date return_date) throws IOException{
 		JPanel car_panel = new JPanel();
 		car_panel.setSize(100, 330);
 		car_panel.setLayout(new GridLayout(1,3));
@@ -238,7 +238,7 @@ public class Car {
 		JLabel price = new JLabel(""+this.dailyPrice+" TL");
 		JButton rent_button = new JButton("Rent");
 		
-		rentHandler rh = new rentHandler(this, car_info);
+		rentHandler rh = new rentHandler(this, car_info, pickup_date, return_date);
 		rent_button.addActionListener(rh);
 		
 		car_rent.add(l_price);
@@ -305,13 +305,17 @@ public class Car {
 class rentHandler implements ActionListener{
 	JPanel jp = new JPanel();
 	Car car = new Car(); 
-	public rentHandler(Car c, JPanel j){
+	Date d1;
+	Date d2;
+	public rentHandler(Car c, JPanel j, Date d1, Date d2){
 		jp=j;
 		car=c;
+		this.d1=d1;
+		this.d2=d2;
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		PaymentPanel pp = new PaymentPanel(jp, car);
+		PaymentPanel pp = new PaymentPanel(jp, car, d1, d2);
 		pp.setVisible(true);
 	}
 	

@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.io.IOException;
+import java.sql.Date;
 import java.util.ArrayList;
 
 import javax.swing.BorderFactory;
@@ -12,8 +13,8 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 public class RentPanel extends JFrame{
-	public RentPanel() throws IOException{
-		this.setTitle("Select the vehicle");
+	public RentPanel(String vendor, Date pickup_date, Date return_date) throws IOException{
+		this.setTitle("Select the vehicle from "+vendor+" between "+pickup_date+" and "+return_date);
 		DatabaseManager db = new DatabaseManager();
 		ArrayList<Car> cars = db.getCarList();
 	
@@ -29,7 +30,7 @@ public class RentPanel extends JFrame{
 	    for(int i=0; i<cars.size(); i++){
 	    	JPanel panel = new JPanel();
 	     	panel.setLayout(layout);
-	    	panel=cars.get(i).toPanel();
+	    	panel=cars.get(i).toPanel(vendor, pickup_date, return_date);
 	    	panel.setBorder(BorderFactory.createLineBorder(Color.black));
 	    	frame_panel.add(panel);
 	    }

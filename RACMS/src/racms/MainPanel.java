@@ -9,7 +9,11 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Properties;
 
 import javax.swing.ImageIcon;
@@ -47,28 +51,55 @@ public class MainPanel extends JPanel{
 			vendor_list.addItem(v_list.get(i));
 		}
 		
-	
 		UtilDateModel model = new UtilDateModel();
 		JDatePanelImpl datePanel = new JDatePanelImpl(model);
-		JDatePickerImpl pickupDatePicker = new JDatePickerImpl(datePanel);
+		JDatePickerImpl pickupDatePicker = new JDatePickerImpl(datePanel, new DateLabelFormatter());
 		
 		UtilDateModel model1 = new UtilDateModel();
 		JDatePanelImpl datePanel1 = new JDatePanelImpl(model1);
-		JDatePickerImpl returnDatePicker = new JDatePickerImpl(datePanel1);
+		JDatePickerImpl returnDatePicker = new JDatePickerImpl(datePanel1, new DateLabelFormatter());
 		
 		JButton submit = new JButton("Submit");
 		submit.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//vendor_list.getSelectedItem();
-				//java.sql.Date d1 = (java.sql.Date) pickupDatePicker.getModel().getValue();
-				//java.sql.Date d2 = (java.sql.Date) returnDatePicker.getModel().getValue();
-				//System.out.println(d1.toString());
-				//System.out.println(d2.toString());
+				String v_name = vendor_list.getSelectedItem().toString();
+				String d1 = pickupDatePicker.getJFormattedTextField().getText();
+				String d2 = returnDatePicker.getJFormattedTextField().getText();
+				
+				java.sql.Date date1 = null;
+				java.sql.Date date2 = null;
+				
+				DateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+				Date parsed1;
+				Date parsed2;
+				try {
+					parsed1 = formatter.parse(d1);
+					parsed2 = formatter.parse(d2);
+					date1 = new java.sql.Date(parsed1.getTime());
+					date2 = new java.sql.Date(parsed2.getTime());
+					
+					System.out.println(date1);
+					System.out.println(date2);
+					System.out.println(d1);
+					System.out.println(d2);
+					
+				} catch (ParseException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+		        
 				RentPanel rp;
 				try {
-					rp = new RentPanel();
+					System.out.println(date1);
+					System.out.println(date2);
+					System.out.println(date1.before(date2));
+					if(date1.before(date2)){
+					rp = new RentPanel(v_name, (java.sql.Date) date1, (java.sql.Date) date2);
 					rp.setVisible(true);
+					} else{
+						JOptionPane.showMessageDialog(frame, "Please check the selected dates!");
+					}
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
