@@ -2,6 +2,8 @@ package racms;
 
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -37,6 +39,9 @@ public class Car {
 	private int renterPhone;
 	private String renterEmail;
 
+	public Car(){
+	}
+	
 	// Getters
 	public String getPlate() {
 		return plate;
@@ -233,6 +238,9 @@ public class Car {
 		JLabel price = new JLabel(""+this.dailyPrice+" TL");
 		JButton rent_button = new JButton("Rent");
 		
+		rentHandler rh = new rentHandler(this, car_info);
+		rent_button.addActionListener(rh);
+		
 		car_rent.add(l_price);
 		car_rent.add(price);
 		car_rent.add(rent_button);
@@ -244,3 +252,19 @@ public class Car {
 		return car_panel;
 	}
 }
+
+class rentHandler implements ActionListener{
+	JPanel jp = new JPanel();
+	Car car = new Car(); 
+	public rentHandler(Car c, JPanel j){
+		jp=j;
+		car=c;
+	}
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		PaymentPanel pp = new PaymentPanel(jp, car);
+		pp.setVisible(true);
+	}
+	
+}
+
