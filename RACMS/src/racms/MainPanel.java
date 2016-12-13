@@ -8,6 +8,7 @@ import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Properties;
 
@@ -30,7 +31,6 @@ public class MainPanel extends JPanel{
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		ImageIcon icon = new ImageIcon("banner.png");
 		JLabel bg = new JLabel(icon);
-		
 		
 		//Vendor and Date Options for the Customer Information
 		JPanel user_panel = new JPanel();
@@ -60,11 +60,19 @@ public class MainPanel extends JPanel{
 		submit.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				vendor_list.getSelectedItem();
-				java.sql.Date d1 = (java.sql.Date) pickupDatePicker.getModel().getValue();
-				java.sql.Date d2 = (java.sql.Date) returnDatePicker.getModel().getValue();
-				System.out.println(d1.toString());
-				System.out.println(d2.toString());
+				//vendor_list.getSelectedItem();
+				//java.sql.Date d1 = (java.sql.Date) pickupDatePicker.getModel().getValue();
+				//java.sql.Date d2 = (java.sql.Date) returnDatePicker.getModel().getValue();
+				//System.out.println(d1.toString());
+				//System.out.println(d2.toString());
+				RentPanel rp;
+				try {
+					rp = new RentPanel();
+					rp.setVisible(true);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				
 			}
 			
@@ -99,7 +107,6 @@ public class MainPanel extends JPanel{
 			
 		});
 		
-	
 		frame.setSize(500, 400);
 		frame.add(bg, BorderLayout.NORTH);
 		frame.add(user_panel, BorderLayout.CENTER);
