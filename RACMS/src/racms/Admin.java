@@ -30,5 +30,20 @@ public class Admin {
 	public void setPasswd(String newPasswd) {
 		passwd = newPasswd;
 	}
+	
+	//toPanel()
+	
+	public JPanel toPanel() {
+		JPanel panel = new JPanel();
+		
+		JLabel vendorNoLabel = new JLabel("" + vendorNo);
+		JLabel vendorNameLabel = new JLabel(vendorName);
+		
+		panel.setLayout(new GridLayout(1,2));
+		panel.add(vendorNoLabel);
+		panel.add(vendorNameLabel);
+		
+		return panel;
+	}
 
 }
