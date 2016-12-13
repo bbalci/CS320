@@ -1,4 +1,4 @@
-package databaseLayer;
+package racms;
 
 public class Admin {
 	private int vendorNo;
