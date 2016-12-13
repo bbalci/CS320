@@ -1,21 +1,32 @@
 package racms;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
 public class AdminSearchPanel extends JFrame{
 	
-	public static void openAdminSearchPanel(){
+	public static void searchPanelAdmin(){
 		
 		JFrame frame = new JFrame("SELECT BRANCH");		
-		JPanel MainPanel = new JPanel(new FlowLayout());		
+		JPanel MainPanel = new JPanel(new FlowLayout());
+		
+		//Branch List should be gathered from database
 		String[] branchlist = {"1", "2", "3", "4", "5"};	
 		
 		JComboBox list = new JComboBox(branchlist);
-		JButton goButton = new JButton("Go");
-		JLabel searchVendorLabel = new JLabel("Branch List");
 		
+		JButton goButton = new JButton("Go");
+		goButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				//TODO
+			}
+		});
+		
+		
+		JLabel searchVendorLabel = new JLabel("Branch List");		
 		searchVendorLabel.setLabelFor(list);
 		
 		MainPanel.add(searchVendorLabel);
@@ -35,7 +46,7 @@ public class AdminSearchPanel extends JFrame{
 		
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                openAdminSearchPanel();
+                searchPanelAdmin();
             }
         });
 	}

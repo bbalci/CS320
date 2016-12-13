@@ -8,7 +8,7 @@ import java.awt.*;
 
 public class InformationPanel extends JFrame implements ActionListener{
 	
-	public static void openInformationPanel(){
+	public static void paymentPanel(){
 		
 		String[] labels = {"Name:", "Surname:", "Birth Date:", 
 							"ID Number:", "Address:", "Phone Number:", "e-mail:", "IBAN:"};		
@@ -17,10 +17,18 @@ public class InformationPanel extends JFrame implements ActionListener{
 		JPanel MainPanel = new JPanel(new BorderLayout());		
 		JPanel InfoPanel = new JPanel(new SpringLayout());		
 		JPanel CarInfoSummary = new JPanel(new FlowLayout());
+		
+		JButton submit = new JButton("Submit");
+		
 		JTextField carinfofield = new JTextField();
 		JTextField price = new JTextField();
+		
+		
+		//Car and Price Information should be gathered from DB
 		carinfofield.setText("Car Info");
 		price.setText("Price");
+		
+		
 		carinfofield.setEditable(false);
 		price.setEditable(false);
 		CarInfoSummary.add(carinfofield);
@@ -31,13 +39,16 @@ public class InformationPanel extends JFrame implements ActionListener{
 			JTextField inputfield = new JTextField(20);
 			inputfield.addActionListener(new ActionListener(){
 			      public void actionPerformed(ActionEvent e) {
-			          System.out.println("Text=" + inputfield.getText());
+			          //TODO 
 			        }
 			});
+			
 			label.setLabelFor(inputfield);
 			InfoPanel.add(label);
 			InfoPanel.add(inputfield);			
 		}
+		
+		CarInfoSummary.add(submit);
 		
 		SpringUtilities.makeCompactGrid(InfoPanel,
 										numPairs,2,
@@ -62,7 +73,7 @@ public class InformationPanel extends JFrame implements ActionListener{
 	public static void main(String[] args){
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
-                openInformationPanel();
+                paymentPanel();
             }
         });
 		
