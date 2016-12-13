@@ -3,22 +3,47 @@ package racms;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
+
 import javax.swing.*;
 import java.awt.*;
 
-public class InformationPanel extends JFrame implements ActionListener{
+public class PaymentPanel extends JFrame implements ActionListener{
+	
+	public static String input;
 	
 	public static void paymentPanel(){
 		
 		String[] labels = {"Name:", "Surname:", "Birth Date:", 
-							"ID Number:", "Address:", "Phone Number:", "e-mail:", "IBAN:"};		
+							"ID Number:", "Address:", "Phone Number:", "e-mail:", "IBAN:"};	
+		
+		String[] inputs = new String[labels.length];
+		
 		int numPairs = labels.length;
 		
 		JPanel MainPanel = new JPanel(new BorderLayout());		
 		JPanel InfoPanel = new JPanel(new SpringLayout());		
 		JPanel CarInfoSummary = new JPanel(new FlowLayout());
+		JTextField[] inputfields = new JTextField[numPairs];
+		
+		for(int i = 0; i < numPairs; i++){
+			JLabel label = new JLabel(labels[i], JLabel.TRAILING);
+			inputfields[i] = new JTextField(20);
+			
+			label.setLabelFor(inputfields[i]);
+			InfoPanel.add(label);
+			InfoPanel.add(inputfields[i]);			
+		}
 		
 		JButton submit = new JButton("Submit");
+		submit.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e){
+				for(int i = 0; i < numPairs; i++){
+					inputs[i] = inputfields[i].getText();
+				}
+				System.out.println(Arrays.toString(inputs));
+			}
+		});
 		
 		JTextField carinfofield = new JTextField();
 		JTextField price = new JTextField();
@@ -34,19 +59,7 @@ public class InformationPanel extends JFrame implements ActionListener{
 		CarInfoSummary.add(carinfofield);
 		CarInfoSummary.add(price);
 		
-		for(int i = 0; i < numPairs; i++){
-			JLabel label = new JLabel(labels[i], JLabel.TRAILING);
-			JTextField inputfield = new JTextField(20);
-			inputfield.addActionListener(new ActionListener(){
-			      public void actionPerformed(ActionEvent e) {
-			          //TODO 
-			        }
-			});
-			
-			label.setLabelFor(inputfield);
-			InfoPanel.add(label);
-			InfoPanel.add(inputfield);			
-		}
+
 		
 		CarInfoSummary.add(submit);
 		
@@ -69,6 +82,7 @@ public class InformationPanel extends JFrame implements ActionListener{
 		frame.setVisible(true);
 	
 	}	
+	
 	
 	public static void main(String[] args){
         javax.swing.SwingUtilities.invokeLater(new Runnable() {

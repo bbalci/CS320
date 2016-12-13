@@ -6,7 +6,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-public class AdminSearchPanel extends JFrame{
+public class SearchPanelAdmin extends JFrame{
 	
 	public static void searchPanelAdmin(){
 		
