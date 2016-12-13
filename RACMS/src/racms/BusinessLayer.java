@@ -16,4 +16,8 @@ public class BusinessLayer {
 		}
 		return pickedCars;
 	}
+	
+	public ArrayList<Admin> listAdmins() {
+		return databaseManager.getAdminList();
+	}
 }
