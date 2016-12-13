@@ -1,6 +1,18 @@
 package racms;
 
+import java.awt.GridLayout;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Date;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 
 public class Car {
 	private String plate;
@@ -184,5 +196,50 @@ public class Car {
 
 	public void setRenterEmail(String newRenterEmail) {
 		renterEmail = newRenterEmail;
+	}
+	
+	public JPanel toPanel() throws IOException{
+		JPanel car_panel = new JPanel();
+		car_panel.setSize(700, 350);
+		car_panel.setLayout(new GridLayout(1,3));
+		
+		URL url;
+		url = new URL("http://balci.xyz/racms_photo/"+this.photo);
+		BufferedImage c = ImageIO.read(url);
+		ImageIcon image = new ImageIcon(c);
+		
+		
+		JLabel car_image = new JLabel(image);
+		car_image.setBorder(new EmptyBorder(10,10,10,10));
+		
+		JPanel car_info = new JPanel();
+		car_info.setLayout(new GridLayout(5,1));
+		JLabel brand_model = new JLabel(this.brand+" "+this.model);
+		JLabel transmisson = new JLabel("Transmission: "+this.gearType);
+		JLabel fuel = new JLabel("Fuel: " +this.fuelType);
+		JLabel min_age = new JLabel("Minimum Age: "+this.minRentAge);
+		JLabel segment = new JLabel(this.segment+" Segment");
+		
+		car_info.add(brand_model);
+		car_info.add(segment);
+		car_info.add(transmisson);
+		car_info.add(fuel);
+		car_info.add(min_age);
+		
+		JPanel car_rent = new JPanel();
+		car_rent.setLayout(new GridLayout(3,1));
+		JLabel l_price = new JLabel("Daily Price");
+		JLabel price = new JLabel(""+this.dailyPrice+" TL");
+		JButton rent_button = new JButton("Rent");
+		
+		car_rent.add(l_price);
+		car_rent.add(price);
+		car_rent.add(rent_button);
+		
+		car_panel.add(car_image);
+		car_panel.add(car_info);
+		car_panel.add(car_rent);
+		
+		return car_panel;
 	}
 }
