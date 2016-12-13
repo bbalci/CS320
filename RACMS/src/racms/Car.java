@@ -268,3 +268,35 @@ class rentHandler implements ActionListener{
 	
 }
 
+class EditButtonListener implements ActionListener {
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		EditingFrame ef = new EditingFrame();
+	}
+	
+}
+
+class DeleteButtonListener implements ActionListener {
+	String plate;
+	DatabaseManager db = new DatabaseManager();
+	
+	public DeleteButtonListener(String plate) {
+		this.plate = plate;
+	}
+	
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		int selectedOption = JOptionPane.showConfirmDialog(null, 
+                "Are you sure you want to delete the car?", 
+                "Choose", 
+                JOptionPane.YES_NO_OPTION); 
+		if(selectedOption == JOptionPane.YES_OPTION){
+			db.deleteCar(plate);
+		}
+		
+	}
+	
+}
+
+
