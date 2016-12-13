@@ -1,5 +1,6 @@
 package racms;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
@@ -200,14 +201,13 @@ public class Car {
 	
 	public JPanel toPanel() throws IOException{
 		JPanel car_panel = new JPanel();
-		car_panel.setSize(700, 350);
+		car_panel.setSize(100, 330);
 		car_panel.setLayout(new GridLayout(1,3));
 		
 		URL url;
 		url = new URL("http://balci.xyz/racms_photo/"+this.photo);
 		BufferedImage c = ImageIO.read(url);
 		ImageIcon image = new ImageIcon(c);
-		
 		
 		JLabel car_image = new JLabel(image);
 		car_image.setBorder(new EmptyBorder(10,10,10,10));
@@ -228,6 +228,7 @@ public class Car {
 		
 		JPanel car_rent = new JPanel();
 		car_rent.setLayout(new GridLayout(3,1));
+		car_rent.setBorder(new EmptyBorder(20,20,20,20));
 		JLabel l_price = new JLabel("Daily Price");
 		JLabel price = new JLabel(""+this.dailyPrice+" TL");
 		JButton rent_button = new JButton("Rent");

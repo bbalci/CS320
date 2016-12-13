@@ -17,13 +17,13 @@ public class RentPanel extends JFrame{
 		DatabaseManager db = new DatabaseManager();
 		ArrayList<Car> cars = db.getCarList();
 	
-		Dimension dim = new Dimension(750, (cars.size()*330));
+		Dimension dim = new Dimension(820, cars.size()*330);
 	    this.setSize(dim);
 	    
 		JPanel frame_panel = new JPanel();
 		frame_panel.setMaximumSize(dim);
 		
-    	GridLayout layout = new GridLayout(2*cars.size(),1);
+    	GridLayout layout = new GridLayout(cars.size(),1);
     	frame_panel.setLayout(layout);
     	
 	    for(int i=0; i<cars.size(); i++){
