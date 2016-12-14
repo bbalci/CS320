@@ -286,7 +286,7 @@ public class Car {
 		JLabel l_price = new JLabel("Daily Price");
 		JLabel price = new JLabel(""+this.dailyPrice+" TL");
 		JButton editButton = new JButton("Edit Car");
-		//editButton.addActionListener(new EditButtonListener());
+		editButton.addActionListener(new EditButtonListener(plate));
 		JButton deleteButton = new JButton("Delete Car");
 		deleteButton.addActionListener(new DeleteButtonListener(plate));
 		
@@ -321,16 +321,20 @@ class rentHandler implements ActionListener{
 	}
 	
 }
-/*
-class EditButtonListener implements ActionListener {
 
+class EditButtonListener implements ActionListener {
+	String plate;
+	
+	public EditButtonListener(String plate) {
+		this.plate = plate;
+	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		EditingFrame ef = new EditingFrame();
+		EditingFrame ef = new EditingFrame(plate);
 	}
 	
 }
-*/
+
 class DeleteButtonListener implements ActionListener {
 	String plate;
 	DatabaseManager db = new DatabaseManager();
