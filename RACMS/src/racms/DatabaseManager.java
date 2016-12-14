@@ -200,9 +200,17 @@ public class DatabaseManager {
 		}
 	}
 	
-	public void updateCar(String plate) {
-		String query = "delete from car where plate = '" + plate + "'";
-		
+	public void rentCar(Car c) {
+		String query = "update Car set "
+				+"status='"+c.getStatus()+"',"
+				+"renter_address='"+c.getRenterAddress()+"',"
+				+"renter_email='"+c.getRenterEmail()+"',"
+				+"renter_id="+c.getRenterID()+","
+				+"renter_name='"+c.getRenterName()+"',"
+			    +"renter_phone="+c.getRenterPhone()+","
+				+"out_date='"+c.getOutDate()+"',"
+				+"return_date='"+c.getReturnDate()+"'"
+				+ " where plate = '" + c.getPlate() + "'";
 		try {
 			stmt.executeUpdate(query);
 		} catch (SQLException e) {

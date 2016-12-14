@@ -14,6 +14,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -285,7 +286,7 @@ public class Car {
 		JLabel l_price = new JLabel("Daily Price");
 		JLabel price = new JLabel(""+this.dailyPrice+" TL");
 		JButton editButton = new JButton("Edit Car");
-		editButton.addActionListener(new EditButtonListener());
+		//editButton.addActionListener(new EditButtonListener());
 		JButton deleteButton = new JButton("Delete Car");
 		deleteButton.addActionListener(new DeleteButtonListener(plate));
 		
@@ -320,7 +321,7 @@ class rentHandler implements ActionListener{
 	}
 	
 }
-
+/*
 class EditButtonListener implements ActionListener {
 
 	@Override
@@ -329,7 +330,7 @@ class EditButtonListener implements ActionListener {
 	}
 	
 }
-
+*/
 class DeleteButtonListener implements ActionListener {
 	String plate;
 	DatabaseManager db = new DatabaseManager();
