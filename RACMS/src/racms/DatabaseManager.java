@@ -1,5 +1,6 @@
 package racms;
 
+import java.io.FileNotFoundException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -19,7 +20,11 @@ public class DatabaseManager {
 	static Connection conn = null;
 	static Statement stmt = null;
 	
-	public DatabaseManager() {
+	public DatabaseManager(){
+		openConn();
+	}
+	
+	public void openConn(){
 		try {
 			conn = DriverManager.getConnection(DB_URL, USER, PASS);
 			stmt = conn.createStatement();
@@ -31,6 +36,7 @@ public class DatabaseManager {
 	}
 	
 	public ArrayList<Car> getCarList(){
+		//openConn();
 		ArrayList<Car> cars = new ArrayList<Car>();
 		
 		String query = "Select * from Car";
@@ -59,6 +65,7 @@ public class DatabaseManager {
 				car.setVendorNo(rs.getInt("vendor_no"));
 				cars.add(car);
 			}
+			//conn.close();
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
 		}
@@ -67,9 +74,10 @@ public class DatabaseManager {
 	}
 	
 	public ArrayList<Admin> getAdminList() {
+		//openConn();
 		ArrayList<Admin> admins = new ArrayList<Admin>();
 		
-		String query = "Select * from admin";
+		String query = "Select * from Admin";
 		try (ResultSet rs = stmt.executeQuery(query)) {
 			while (rs.next()) {
 				Admin admin = new Admin();
@@ -78,6 +86,7 @@ public class DatabaseManager {
 				admin.setVendorNo(rs.getInt("vendor_no"));
 				admins.add(admin);
 			}
+			//conn.close();
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
 		}
@@ -86,13 +95,15 @@ public class DatabaseManager {
 	}
 	
 	public boolean checkAdmin(int vendor_no, String vendor_name, String passwd){
+		//openConn();
 		int count = 0;
 		
-		String query = "Select count(*) from admin where vendor_no = '"+vendor_no + "' and vendor_name= '"+ vendor_name + "' and passwd = '"+ passwd +"'";
+		String query = "Select count(*) from Admin where vendor_no = '"+vendor_no + "' and vendor_name= '"+ vendor_name + "' and passwd = '"+ passwd +"'";
 		try (ResultSet rs = stmt.executeQuery(query)) {
 			while (rs.next()) {
 				count = rs.getInt("count(*)");
 			}
+			//conn.close();
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
 		}
@@ -105,9 +116,11 @@ public class DatabaseManager {
 	}
 	
 	public void addAdmin(int vendor_no, String vendor_name, String passwd) {
-		String query = "Insert into admin values(" +vendor_no +",'"+vendor_name +"','" +passwd +"')";
+		//openConn();
+		String query = "Insert into Admin values(" +vendor_no +",'"+vendor_name +"','" +passwd +"')";
 		try {
 			stmt.executeUpdate(query);
+			//conn.close();
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
 		}
@@ -118,19 +131,23 @@ public class DatabaseManager {
 			String notes, double km, String status, Date outDate, Date returnDate, String renterName, 
 			int renterID, String renterAddress, int renterPhone, String renterEmail) {
 		
-		String query = "insert into car values('"+plate+"',"+vendorNo+",'"+brand+"','"+model+"','"+
+		//openConn();
+		
+		String query = "insert into Car values('"+plate+"',"+vendorNo+",'"+brand+"','"+model+"','"+
 			photo+"','"+gearType+"','"+fuelType+"',"+dailyPrice+","+minRentAge+",'"+segment+"','"+
 			notes+"',"+km+",'"+status+","+outDate+","+returnDate+",'"+renterName+"',"+renterID+",'"+
 			renterAddress+"',"+renterPhone+",'"+renterEmail+"')";
 		
 		try {
 			stmt.executeUpdate(query);
+			//conn.close();
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
 		}
 	}
 	
 	public boolean checkAvailable(String plate) {
+		//openConn();
 		String query = "Select status from Car where plate ='" + plate+"'";
 		String status = null;
 		
@@ -138,6 +155,7 @@ public class DatabaseManager {
 			while(rs.next()){
 				status = rs.getString("status");
 			}
+			//conn.close();
 		} catch(SQLException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 			System.out.println(e.getMessage());
@@ -150,6 +168,7 @@ public class DatabaseManager {
 	}
 	
 	public boolean checkRented(String plate) {
+		//openConn();
 		String query = "Select status from Car where plate='" + plate+"'";
 		String status = null;
 		
@@ -157,6 +176,7 @@ public class DatabaseManager {
 			while(rs.next()){
 				status = rs.getString("status");
 			}
+			//conn.close();
 		} catch(SQLException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 			System.out.println(e.getMessage());
@@ -169,6 +189,7 @@ public class DatabaseManager {
 	}
 	
 	public boolean checkAvailableAtCertainDates(String plate, Date rentingDate, Date returningDate) {
+		//openConn();
 		if(checkAvailable(plate)) 
 			return true;
 		else {
@@ -181,6 +202,7 @@ public class DatabaseManager {
 					outDate = rs.getDate("out_date");
 					returnDate = rs.getDate("return_date");
 				}
+				//conn.close();
 			} catch(SQLException e) {
 				JOptionPane.showMessageDialog(null, e.getMessage());
 				System.out.println(e.getMessage());
@@ -196,16 +218,19 @@ public class DatabaseManager {
 	}
 	
 	public void deleteCar(String plate) {
-		String query = "delete from car where plate = '" + plate + "'";
+		//openConn();
+		String query = "delete from Car where plate = '" + plate + "'";
 		
 		try {
 			stmt.executeUpdate(query);
+			//conn.close();
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
 		}
 	}
 	
-	public void rentCar(Car c) {
+	public void rentCar(Car c){
+		//openConn();
 		String query = "update Car set "
 				+"status='"+c.getStatus()+"',"
 				+"renter_address='"+c.getRenterAddress()+"',"
@@ -219,6 +244,10 @@ public class DatabaseManager {
 		try {
 			System.out.println(query);
 			stmt.executeUpdate(query);
+			JOptionPane.showMessageDialog(null, "Renting completed!");
+			GMailSend g = new GMailSend(c.getRenterEmail());
+			g.main();
+			//conn.close();
 		} catch (SQLException e) {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 			System.err.println(e.getMessage());
@@ -226,7 +255,8 @@ public class DatabaseManager {
 	}
 	
 	public ArrayList<Car> getVendorsCars(int vendorNo) {
-		String query = "Select * from car where vendor_no = '"+vendorNo+"'";
+		//openConn();
+		String query = "Select * from Car where vendor_no = '"+vendorNo+"'";
 		ArrayList<Car> cars = new ArrayList<Car>();
 		
 		try (ResultSet rs = stmt.executeQuery(query)) {
@@ -254,6 +284,7 @@ public class DatabaseManager {
 				car.setVendorNo(rs.getInt("vendor_no"));
 				cars.add(car);
 			}
+			//conn.close();
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
 		}
@@ -261,7 +292,25 @@ public class DatabaseManager {
 		return cars;
 	}
 	
+	public int checkID(String username, String password){
+		//openConn();
+		int result = 0;
+		String query = "SELECT COUNT(vendor_no) FROM Admin WHERE vendor_no="+username+" and passwd='"+password+"'";
+		try {
+			ResultSet rs = stmt.executeQuery(query);
+			while(rs.next()){
+	    	  	result = rs.getInt("COUNT(vendor_no)");
+	            System.out.print(rs.getInt("COUNT(vendor_no)"));
+			}
+			//conn.close();
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+		}
+		return result;
+	}
+	
 	public Car getCar(String plate) {
+		//openConn();
 		Car car = new Car();
 		
 		String query = "Select * from Car where plate = '"+plate+"'";
@@ -289,6 +338,7 @@ public class DatabaseManager {
 				car.setStatus(rs.getString("status"));
 				car.setVendorNo(rs.getInt("vendor_no"));
 			}
+			//conn.close();
 		} catch (SQLException e) {
 			System.err.println(e.getMessage());
 		}

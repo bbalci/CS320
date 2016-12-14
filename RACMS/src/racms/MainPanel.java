@@ -13,6 +13,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Properties;
 
@@ -94,7 +95,9 @@ public class MainPanel extends JPanel{
 					System.out.println(date1);
 					System.out.println(date2);
 					System.out.println(date1.before(date2));
-					if(date1.before(date2)){
+					Date today = (Calendar.getInstance().getTime());
+					
+					if(date1.before(date2) && (!date1.before(today) || date1.equals(today))){
 					rp = new RentPanel(v_name, (java.sql.Date) date1, (java.sql.Date) date2);
 					rp.setVisible(true);
 					} else{

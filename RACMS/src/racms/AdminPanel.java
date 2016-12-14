@@ -3,6 +3,8 @@ package racms;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -38,7 +40,7 @@ public class AdminPanel extends JFrame{
 		return vendorPanel;
 	}
 	
-	public JPanel carListingPanel(String vendorNo) throws IOException {
+	public JPanel carListingPanel(int vendorNo) throws IOException {
 		JPanel carListingPanel = new JPanel();
 		carListingPanel.setLayout(new BorderLayout());
 		

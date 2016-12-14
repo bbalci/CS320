@@ -77,25 +77,25 @@ public class ConfirmationMail {
 	 * Test sending e-mail with attachments
 	 * @throws FileNotFoundException
 	 */
-	public static void main(String[] args) throws FileNotFoundException {
+	public static void sendMail(String s) throws FileNotFoundException {
 		// SMTP info
 		String host = "smtp.gmail.com";
 		String port = "587";
-		String mailFrom = "";
-		String password = "";
+		String mailFrom = "cs320racms";
+		String password = "Merhaba123";
 
 		// message info
 		String subject = "RACMS CONFIRMATION MAIL";
-		String message = "Your payment was accepted." +
-				"You can take your car from _____" ;
+		String message = "Your payment was accepted.";
 
 		try {
-			sendEmailWithAttachments(host, port, mailFrom, password, "",
+			sendEmailWithAttachments(host, port, mailFrom, password, s,
 					subject, message);
 		} catch (Exception ex) {
 			System.out.println("Could not send email.");
 			ex.printStackTrace();
 		}
 	}
+
 
 }
