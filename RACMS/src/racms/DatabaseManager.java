@@ -10,9 +10,9 @@ import java.util.Date;
 
 public class DatabaseManager {
 
-	static final String DB_URL = "jdbc:mysql://localhost:3306/racms";
-	static final String USER = "root";
-	static final String PASS = "password";
+	static final String DB_URL = "jdbc:mysql://185.111.233.24:3306/kwmbalci_racms?verifyServerCertificate=false&useSSL=false";
+	static final String USER = "kwmbalci_cs320";
+	static final String PASS = "Merhaba123";
 
 	static Connection conn = null;
 	static Statement stmt = null;
@@ -31,7 +31,7 @@ public class DatabaseManager {
 	public ArrayList<Car> getCarList(){
 		ArrayList<Car> cars = new ArrayList<Car>();
 		
-		String query = "Select * from car";
+		String query = "Select * from Car";
 		try (ResultSet rs = stmt.executeQuery(query)) {
 			while (rs.next()) {
 				Car car = new Car();
@@ -191,6 +191,16 @@ public class DatabaseManager {
 	}
 	
 	public void deleteCar(String plate) {
+		String query = "delete from car where plate = '" + plate + "'";
+		
+		try {
+			stmt.executeUpdate(query);
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+		}
+	}
+	
+	public void updateCar(String plate) {
 		String query = "delete from car where plate = '" + plate + "'";
 		
 		try {
