@@ -15,9 +15,11 @@ import javax.swing.JScrollPane;
 public class RentPanel extends JFrame{
 	public RentPanel(String vendor, Date pickup_date, Date return_date) throws IOException{
 		this.setTitle("Select the vehicle from "+vendor+" between "+pickup_date+" and "+return_date);
-		DatabaseManager db = new DatabaseManager();
-		ArrayList<Car> cars = db.getCarList();
-	
+		//DatabaseManager db = new DatabaseManager();
+		BusinessLayer bl = new BusinessLayer();
+		ArrayList<Car> cars = bl.listCars(vendor, pickup_date, return_date);
+		//ArrayList<Car> cars = db.getCarList();
+		
 		Dimension dim = new Dimension(820, cars.size()*330);
 	    this.setSize(dim);
 	    

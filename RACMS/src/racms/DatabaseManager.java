@@ -8,6 +8,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Date;
 
+import javax.swing.JOptionPane;
+
 public class DatabaseManager {
 
 	static final String DB_URL = "jdbc:mysql://185.111.233.24:3306/kwmbalci_racms?verifyServerCertificate=false&useSSL=false";
@@ -129,7 +131,7 @@ public class DatabaseManager {
 	}
 	
 	public boolean checkAvailable(String plate) {
-		String query = "Select status from car where plate = " + plate;
+		String query = "Select status from Car where plate ='" + plate+"'";
 		String status = null;
 		
 		try (ResultSet rs = stmt.executeQuery(query)){
@@ -137,6 +139,7 @@ public class DatabaseManager {
 				status = rs.getString("status");
 			}
 		} catch(SQLException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
 			System.out.println(e.getMessage());
 		}
 		
@@ -147,7 +150,7 @@ public class DatabaseManager {
 	}
 	
 	public boolean checkRented(String plate) {
-		String query = "Select status from car where plate = " + plate;
+		String query = "Select status from Car where plate='" + plate+"'";
 		String status = null;
 		
 		try (ResultSet rs = stmt.executeQuery(query)){
@@ -155,6 +158,7 @@ public class DatabaseManager {
 				status = rs.getString("status");
 			}
 		} catch(SQLException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
 			System.out.println(e.getMessage());
 		}
 		
@@ -168,7 +172,7 @@ public class DatabaseManager {
 		if(checkAvailable(plate)) 
 			return true;
 		else {
-			String query = "Select out_date, return_date from car where plate = " + plate;
+			String query = "Select out_date, return_date from Car where plate = '" + plate+"'";
 			Date outDate = null;
 			Date returnDate = null;
 			
@@ -178,6 +182,7 @@ public class DatabaseManager {
 					returnDate = rs.getDate("return_date");
 				}
 			} catch(SQLException e) {
+				JOptionPane.showMessageDialog(null, e.getMessage());
 				System.out.println(e.getMessage());
 			}
 			
@@ -212,8 +217,10 @@ public class DatabaseManager {
 				+"return_date='"+c.getReturnDate()+"'"
 				+ " where plate = '" + c.getPlate() + "'";
 		try {
+			System.out.println(query);
 			stmt.executeUpdate(query);
 		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
 			System.err.println(e.getMessage());
 		}
 	}

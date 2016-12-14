@@ -16,6 +16,7 @@ public class PaymentPanel extends JFrame{
 	
 	public static String input;
 	public final static long MILLISECONDS_IN_DAY = 24 * 60 * 60 * 1000;
+	DatabaseManager db = new DatabaseManager();
 	
 	public PaymentPanel(JPanel p, Car c, java.util.Date d1, java.util.Date d2){
 		this.setTitle("Payment");
@@ -46,15 +47,18 @@ public class PaymentPanel extends JFrame{
 			public void actionPerformed(ActionEvent e){
 				for(int i = 0; i < numPairs; i++){
 					inputs[i] = inputfields[i].getText();
-					c.setStatus("Rented");
-					c.setRenterAddress(inputs[4]);
-					c.setRenterEmail(inputs[6]);
-					c.setRenterID(Integer.parseInt(inputs[3]));
-					c.setRenterName(inputs[0]+" "+inputs[1]);
-					c.setRenterPhone(Integer.parseInt(inputs[5]));
-					c.setOutDate(d1);
-					c.setReturnDate(d2);
 				}
+				c.setStatus("Rented");
+				c.setRenterAddress(inputs[4]);
+				System.out.println(inputs[5]);
+				System.out.println((inputs[3]));
+				c.setRenterEmail(inputs[6]);
+				c.setRenterID(Integer.parseInt(inputs[3]));
+				c.setRenterName(inputs[0]+" "+inputs[1]);
+				c.setRenterPhone(Integer.parseInt(inputs[5]));
+				c.setOutDate(d1);
+				c.setReturnDate(d2);
+				db.rentCar(c);
 			}
 		});
 		
