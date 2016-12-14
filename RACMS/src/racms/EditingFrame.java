@@ -20,6 +20,8 @@ public class EditingFrame extends JFrame{
 	public JPanel editPanel() {
 		JPanel p = new JPanel();
 		
+		p.setLayout(new GridLayout(10, 2));
+		
 		JLabel dp = new JLabel("Daily Price: ");
 		JTextField dailyPrice = new JTextField(""+car.getDailyPrice());
 		JLabel mra = new JLabel("Minimum Renting Age: ");
