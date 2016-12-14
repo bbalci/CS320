@@ -254,4 +254,38 @@ public class DatabaseManager {
 		return cars;
 	}
 	
+	public Car getCar(String plate) {
+		Car car = new Car();
+		
+		String query = "Select * from Car where plate = '"+plate+"'";
+		
+		try (ResultSet rs = stmt.executeQuery(query)) {
+			while (rs.next()) {
+				car.setBrand(rs.getString("brand"));
+				car.setDailyPrice(rs.getDouble("Daily_Price"));
+				car.setFuelType(rs.getString("Fuel_Type"));
+				car.setGearType(rs.getString("Gear_Type"));
+				car.setKm(rs.getInt("km"));
+				car.setMinRentAge(rs.getInt("Min_rent_age"));
+				car.setModel(rs.getString("model"));
+				car.setNotes(rs.getString("notes"));
+				car.setOutDate(rs.getDate("out_date"));
+				car.setPhoto(rs.getString("photo"));
+				car.setPlate(rs.getString("plate"));
+				car.setRenterAddress(rs.getString("renter_address"));
+				car.setRenterEmail(rs.getString("renter_email"));
+				car.setRenterID(rs.getInt("renter_id"));
+				car.setRenterName(rs.getString("renter_name"));
+				car.setRenterPhone(rs.getInt("renter_phone"));
+				car.setReturnDate(rs.getDate("return_date"));
+				car.setSegment(rs.getString("segment"));
+				car.setStatus(rs.getString("status"));
+				car.setVendorNo(rs.getInt("vendor_no"));
+			}
+		} catch (SQLException e) {
+			System.err.println(e.getMessage());
+		}
+		
+		return car;
+	}
 }
