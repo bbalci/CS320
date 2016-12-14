@@ -46,9 +46,15 @@ public class AdminPanel extends JFrame{
 		
 		JCheckBox listOnlyAvailable = new JCheckBox("List Only Available Cars");
 		JCheckBox listOnlyRented = new JCheckBox("List Only Rented Cars");
-		ArrayList<Car> cars = new ArrayList<Car>();
+		JButton addCar = new JButton("Add Car");
+		
+		
+		ArrayList<Car> cars = db.getVendorsCars(vendorNo);
 		JPanel checkBoxes = new JPanel();
-		checkBoxes.setLayout(new FlowLayout());
+		checkBoxes.setLayout(new GridLayout(1,3));
+		checkBoxes.add(listOnlyAvailable);
+		checkBoxes.add(listOnlyRented);
+		checkBoxes.add(addCar);
 		
 		panel.setLayout(new GridLayout(cars.size(), 1));
 		
