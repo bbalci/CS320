@@ -18,6 +18,10 @@ public class PaymentPanel extends JFrame{
 	public final static long MILLISECONDS_IN_DAY = 24 * 60 * 60 * 1000;
 	DatabaseManager db = new DatabaseManager();
 	
+	public void closePanel(){
+		this.setVisible(false);
+	}
+	
 	public PaymentPanel(JPanel p, Car c, java.util.Date d1, java.util.Date d2){
 		this.setTitle("Payment");
 		String[] labels = {"Name:", "Surname:", "Birth Date:", 
@@ -41,6 +45,8 @@ public class PaymentPanel extends JFrame{
 			InfoPanel.add(inputfields[i]);			
 		}
 		
+		
+		
 		JButton submit = new JButton("Submit");
 		submit.setMaximumSize(new Dimension(100,200));
 		submit.addActionListener(new ActionListener(){
@@ -59,6 +65,7 @@ public class PaymentPanel extends JFrame{
 				c.setOutDate(d1);
 				c.setReturnDate(d2);
 				db.rentCar(c);
+				closePanel();
 			}
 		});
 		

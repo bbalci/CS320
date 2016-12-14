@@ -13,6 +13,7 @@ import java.util.Date;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -205,7 +206,7 @@ public class Car {
 		renterEmail = newRenterEmail;
 	}
 	
-	public JPanel toPanel(String vendor, Date pickup_date, Date return_date) throws IOException{
+	public JPanel toPanel(JFrame jf, String vendor, Date pickup_date, Date return_date) throws IOException{
 		JPanel car_panel = new JPanel();
 		car_panel.setSize(100, 330);
 		car_panel.setLayout(new GridLayout(1,3));
@@ -239,7 +240,7 @@ public class Car {
 		JLabel price = new JLabel(""+this.dailyPrice+" TL");
 		JButton rent_button = new JButton("Rent");
 		
-		rentHandler rh = new rentHandler(this, car_info, pickup_date, return_date);
+		rentHandler rh = new rentHandler(jf, this, car_info, pickup_date, return_date);
 		rent_button.addActionListener(rh);
 		
 		car_rent.add(l_price);
@@ -305,12 +306,14 @@ public class Car {
 
 class rentHandler implements ActionListener{
 	JPanel jp = new JPanel();
+	JFrame jf = new JFrame();
 	Car car = new Car(); 
 	Date d1;
 	Date d2;
-	public rentHandler(Car c, JPanel j, Date d1, Date d2){
+	public rentHandler(JFrame jf, Car c, JPanel j, Date d1, Date d2){
 		jp=j;
 		car=c;
+		this.jf=jf;
 		this.d1=d1;
 		this.d2=d2;
 	}
@@ -318,6 +321,7 @@ class rentHandler implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		PaymentPanel pp = new PaymentPanel(jp, car, d1, d2);
 		pp.setVisible(true);
+		jf.setVisible(false);
 	}
 	
 }

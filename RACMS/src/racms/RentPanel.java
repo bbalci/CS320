@@ -32,7 +32,7 @@ public class RentPanel extends JFrame{
 	    for(int i=0; i<cars.size(); i++){
 	    	JPanel panel = new JPanel();
 	     	panel.setLayout(layout);
-	    	panel=cars.get(i).toPanel(vendor, pickup_date, return_date);
+	    	panel=cars.get(i).toPanel(this, vendor, pickup_date, return_date);
 	    	panel.setBorder(BorderFactory.createLineBorder(Color.black));
 	    	frame_panel.add(panel);
 	    }
